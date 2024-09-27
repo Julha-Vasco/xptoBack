@@ -15,4 +15,8 @@ export class FilialService {
     const filial = this.filialRepository.create(createFilialDto);
     return await this.filialRepository.save(filial);
   }
+
+  async findAll(): Promise<Filial[]> {
+    return this.filialRepository.find();
+  }
 }

@@ -1,4 +1,10 @@
-import { IsString, IsNotEmpty, IsEnum, IsDateString } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsEnum,
+  IsDateString,
+  IsInt,
+} from 'class-validator';
 
 export class CreateEntregaDto {
   @IsString()
@@ -27,6 +33,7 @@ export class CreateEntregaDto {
   @IsEnum(['PENDING', 'DELIVERED'])
   status: string;
 
+  @IsInt()
   @IsNotEmpty()
-  filialDestinoId: number;
+  filialDestino: number;
 }

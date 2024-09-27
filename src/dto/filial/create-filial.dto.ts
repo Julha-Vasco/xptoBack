@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsInt } from 'class-validator';
 
 export class CreateFilialDto {
+  @IsInt()
   @IsNotEmpty()
-  @IsString()
-  codigo: string;
+  codigo: number;
 
   @IsNotEmpty()
   @IsString()

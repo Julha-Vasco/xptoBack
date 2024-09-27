@@ -1,13 +1,13 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Entrega } from './entrega.entity';
 
-@Entity('filial')
+@Entity({ name: 'filial' })
 export class Filial {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ unique: true })
-  codigo: string;
+  codigo: number;
 
   @Column()
   nome: string;

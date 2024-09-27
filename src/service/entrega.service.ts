@@ -16,18 +16,28 @@ export class EntregaService {
     private filialRepository: Repository<Filial>,
   ) {}
 
-  async findAll(): Promise<Entrega[]> {
-    return await this.entregaRepository.find();
+  async findAll(): Promise<any[]> {
+    const entregas = await this.entregaRepository.find({
+      relations: ['filialDestino'],
+    });
+
+    return entregas.map((entrega) => ({
+      id: entrega.id,
+      descricaoMercadoria: entrega.descricaoMercadoria,
+      filialDestino: entrega.filialDestino.codigo,
+      prazo: entrega.prazo,
+      status: entrega.status,
+    }));
   }
 
   async create(createEntregaDto: CreateEntregaDto): Promise<Entrega> {
     const filial = await this.filialRepository.findOne({
-      where: { id: createEntregaDto.filialDestinoId },
+      where: { codigo: createEntregaDto.filialDestino },
     });
 
     if (!filial) {
       throw new NotFoundException(
-        `Filial com ID ${createEntregaDto.filialDestinoId} não encontrada`,
+        `Filial com código ${createEntregaDto.filialDestino} não encontrada`,
       );
     }
 
@@ -36,7 +46,7 @@ export class EntregaService {
       filialDestino: filial,
     });
 
-    return await this.entregaRepository.save(novaEntrega);
+    return this.entregaRepository.save(novaEntrega);
   }
 
   async update(
@@ -50,6 +60,6 @@ export class EntregaService {
     }
 
     Object.assign(entrega, updateEntregaDto);
-    return await this.entregaRepository.save(entrega);
+    return this.entregaRepository.save(entrega);
   }
 }

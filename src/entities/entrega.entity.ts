@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Filial } from './filial.entity';
 
-@Entity()
+@Entity({ name: 'entrega' })
 export class Entrega {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,7 +25,7 @@ export class Entrega {
   estado: string;
 
   @Column({ type: 'date' })
-  prazoEntrega: Date;
+  prazo: Date;
 
   @Column()
   descricaoMercadoria: string;

@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { FilialService } from '../service/filial.service';
 import { CreateFilialDto } from '../dto/filial/create-filial.dto';
 import { Filial } from '../entities/filial.entity';
@@ -10,5 +10,10 @@ export class FilialController {
   @Post()
   async create(@Body() createFilialDto: CreateFilialDto): Promise<Filial> {
     return this.filialService.create(createFilialDto);
+  }
+
+  @Get()
+  async findAll(): Promise<Filial[]> {
+    return this.filialService.findAll();
   }
 }
